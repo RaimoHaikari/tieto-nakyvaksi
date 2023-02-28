@@ -11,3 +11,25 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+svg {
+  outline: 1px solid navy;
+}
+
+g.pyramid-xAxis-tick line,
+.tick line {
+  stroke: #c0c0BB;
+}
+
+.pyramid-xAxis-tick text,
+.tick text {
+  fill: #635F5D;
+}
+
+.mark {
+  fill: navy;
+}
+
+.axisLabel {
+  font-size: 2.5em;
+}
