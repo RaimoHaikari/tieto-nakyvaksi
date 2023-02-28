@@ -1,11 +1,11 @@
-export const YAxis = ( {y, width}) =>  
+export const YAxis = ( {yScale, width}) =>  
 
-    y.domain().map((tickValue,i) => {
+    yScale.domain().map((tickValue,i) => {
 
     return(
         <g
             key={tickValue}
-            transform={`translate(${(width / 2)}, ${y.bandwidth() / 2 + y(tickValue)})`}
+            transform={`translate(${(width / 2)}, ${yScale.bandwidth() / 2 + yScale(tickValue)})`}
             className="pyramid-yAxis-tick"
         >
             <text

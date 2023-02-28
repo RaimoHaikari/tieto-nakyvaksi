@@ -1,5 +1,7 @@
 import {
     format,
+    InternSet,
+    map,
     max,
     scaleBand,
     scaleLinear,
@@ -17,14 +19,20 @@ import { BottomAxis } from './BottomAxis';
  * 
  * Params
  * @param data - data to be displayed
- * @param x - given d in data, returns the (quantitative) x-value
- * @param y - given d in data, returns the (ordinal) y-value
+ * @param xVal - given d in data, returns the (quantitative) x-value
+ * @param yVal - given d in data, returns the y-value
+ * @param yDomain - an array of y-values
+ * @param yRange - [top, bottom]
+ * @param yPadding - amount of y-range to reserve to separate bars
+ * @param xDomain - [xmin, xmax]
  * @param title -  given d in data, returns the title text
  * @param marginTop - the top margin, in pixels
  * @param marginRight - the right margin, in pixels
  * @param marginBottom - the bottom margin, in pixels
  * @param marginLeft - the left margin, in pixels
  * @param labelBandWidth - width of area dedicated to values 
+ * @param titleLeft - title of the left bars
+ * @param titleRight - title of the right bars
  * @param labelLengthLimit - cut size whether label is placed inside or outside bar
  * @param displayValues - will values be printed or not
  * @param width - the outer width of the chart, in pixels
@@ -33,12 +41,20 @@ import { BottomAxis } from './BottomAxis';
  */
 const PopulationPyramid = ({
     data,
+    xVal = d => d.value,
+    yVal = d => d.age,
+    yDomain,
+    yRange,
+    yPadding = 0.1,
+    xDomain,
     marginTop = 50,
     marginRight = 30,
     marginBottom = 40,
     marginLeft = 30,
     labelBandWidth = 60,
     labelLengthLimit = 90,
+    titleLeft = "Male",
+    titleRight = "Female",
     displayValues = false,
     width,
     height = 480
@@ -49,29 +65,48 @@ const PopulationPyramid = ({
         height: "auto",
         height: "intrinsic"
     }
+
+    // Compute values.
+    const X = map(data, xVal);
+    const Y = map(data, yVal);
+
+    // Compute default domains, and unique the y-domain.
+    if (xDomain === undefined) xDomain = [0, max(X)];
+    if (yDomain === undefined) yDomain = Y;
+    yDomain = new InternSet(yDomain);
     
     const vBarLineStyle = {
         stroke: "navy",
         strokeWidth: "2"
     }
 
+    // Compute y-range
+    if (yRange === undefined) yRange = [height - marginBottom, marginTop];
+
+    // Construct scales
     const xLeft = scaleLinear()
-        .domain([0, max(data, d => d.value)])
+        .domain(xDomain)
         .rangeRound([(width / 2) - (labelBandWidth / 2), marginLeft]);
 
     const xRight = scaleLinear()
         .domain(xLeft.domain())
         .rangeRound([(width / 2) + (labelBandWidth / 2), width - marginRight]);
 
-    const y = scaleBand()
-        .domain(data.map(d => d.age))
-        .rangeRound([height - marginBottom, marginTop])
-        .padding(0.1);
+    const yScale = scaleBand()
+        .domain(yDomain)
+        .rangeRound(yRange)
+        .padding(yPadding);
+
+
 
     const siFormat = format('.2s');
     const xAxisTickFormat = n => siFormat(n).replace('G','B');
 
     const innerHeight = height - marginTop - marginBottom;
+
+
+
+    // foo();
 
     return (
         <svg height = { height } width = { width } viewBox={`0 0 ${width} ${height}`} style={ svgStyle }>
@@ -83,7 +118,7 @@ const PopulationPyramid = ({
                 x={ marginLeft}
                 y={ marginTop / 2}
             >
-                Male
+                { titleLeft }
             </text>
 
             <text
@@ -93,7 +128,7 @@ const PopulationPyramid = ({
                 x = { width - marginRight }
                 y = { marginTop / 2 }
             >
-                Female
+                { titleRight }
             </text>
 
             <g>
@@ -101,7 +136,7 @@ const PopulationPyramid = ({
                     data={ data }
                     xRight = { xRight }
                     xLeft = { xLeft }
-                    y = { y }
+                    yScale = { yScale }
                     schemeSet1 = { schemeSet1 }
                 />
             </g>
@@ -129,14 +164,14 @@ const PopulationPyramid = ({
                     data={ data }
                     xRight = { xRight }
                     xLeft = { xLeft }
-                    y = { y }
+                    yScale = { yScale }
                     labelLengthLimit = {labelLengthLimit}
                 />
             </g>
 
             <g className="pyramid-yAxis">
                 <YAxis 
-                    y = { y } 
+                    yScale = { yScale } 
                     width = { width }
                 />
             </g>

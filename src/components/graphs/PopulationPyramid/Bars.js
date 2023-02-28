@@ -1,4 +1,4 @@
-export const  Bars = ({data, xLeft, xRight, y, schemeSet1}) => 
+export const  Bars = ({data, xLeft, xRight, yScale, schemeSet1}) => 
 
     data.map((d,i) => {
 
@@ -6,9 +6,9 @@ export const  Bars = ({data, xLeft, xRight, y, schemeSet1}) =>
             <rect
                 key={i}
                 x = { d.gender === "M" ? xLeft(d.value) : xRight(0) }
-                y = { y(d.age) }
+                y = { yScale(d.age) }
                 width = { d.gender === "M" ? xLeft(0) - xLeft(d.value) : xRight(d.value) - xRight(0)}
-                height = { y.bandwidth() }
+                height = { yScale.bandwidth() }
                 fill = { schemeSet1[d.gender === "M" ? 1 : 0] }
             />
         )

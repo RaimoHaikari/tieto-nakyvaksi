@@ -1,4 +1,4 @@
-export const  Values = ({data, labelLengthLimit, xLeft, xRight, y}) => 
+export const  Values = ({data, labelLengthLimit, xLeft, xRight, yScale}) => 
 
     data.map((d,i) => {
 
@@ -29,7 +29,7 @@ export const  Values = ({data, labelLengthLimit, xLeft, xRight, y}) =>
                 key = {`pp-values-${i}`}
                 textAnchor = { txtAnchor }
                 x = { xVal }
-                y = { y(d.age) + y.bandwidth() / 2 }
+                y = { yScale(d.age) + yScale.bandwidth() / 2 }
                 dy = "0.35em"
                 fill= { fillColor }
             >
@@ -37,7 +37,3 @@ export const  Values = ({data, labelLengthLimit, xLeft, xRight, y}) =>
             </text>
         )
     });
-
-/*
- width = { d.gender === "M" ? xLeft(0) - xLeft(d.value) : xRight(d.value) - xRight(0)}
-*/
