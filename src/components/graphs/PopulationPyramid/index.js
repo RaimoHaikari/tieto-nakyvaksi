@@ -21,6 +21,7 @@ import { BottomAxis } from './BottomAxis';
  * @param data - data to be displayed
  * @param xVal - given d in data, returns the (quantitative) x-value
  * @param yVal - given d in data, returns the y-value
+ * @param leftGroup - gender that is presented on the left side of graph
  * @param yDomain - an array of y-values
  * @param yRange - [top, bottom]
  * @param yPadding - amount of y-range to reserve to separate bars
@@ -43,6 +44,7 @@ const PopulationPyramid = ({
     data,
     xVal = d => d.value,
     yVal = d => d.age,
+    leftGroup = "M",
     yDomain,
     yRange,
     yPadding = 0.1,
@@ -104,8 +106,6 @@ const PopulationPyramid = ({
 
     const innerHeight = height - marginTop - marginBottom;
 
-
-
     // foo();
 
     return (
@@ -134,6 +134,7 @@ const PopulationPyramid = ({
             <g>
                 <Bars 
                     data={ data }
+                    leftGroup = { leftGroup }
                     xRight = { xRight }
                     xLeft = { xLeft }
                     yScale = { yScale }
