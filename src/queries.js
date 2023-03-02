@@ -1,57 +1,57 @@
 export const VAESTO_LAHDESSA_2021 = `
-{
-  "query": [
-    {
-      "code": "Alue",
-      "selection": {
-        "filter": "agg:_Kunnat aakkosjärjestyksessä 2022.agg",
-        "values": [
-          "KU398"
-        ]
+  {
+    "query": [
+      {
+        "code": "Alue",
+        "selection": {
+          "filter": "agg:_Kunnat aakkosjärjestyksessä 2022.agg",
+          "values": [
+            "KU398"
+          ]
+        }
+      },
+      {
+        "code": "Ikä",
+        "selection": {
+          "filter": "agg:10-vuotisikä 0-9, 10-19, , 90-.agg",
+          "values": [
+            "0-9",
+            "10-19",
+            "20-29",
+            "30-39",
+            "40-49",
+            "50-59",
+            "60-69",
+            "70-79",
+            "80-89",
+            "90-"
+          ]
+        }
+      },
+      {
+        "code": "Sukupuoli",
+        "selection": {
+          "filter": "item",
+          "values": [
+            "1",
+            "2"
+          ]
+        }
+      },
+      {
+        "code": "Vuosi",
+        "selection": {
+          "filter": "item",
+          "values": [
+            "2021"
+          ]
+        }
       }
-    },
-    {
-      "code": "Ikä",
-      "selection": {
-        "filter": "agg:10-vuotisikä 0-9, 10-19, , 90-.agg",
-        "values": [
-          "0-9",
-          "10-19",
-          "20-29",
-          "30-39",
-          "40-49",
-          "50-59",
-          "60-69",
-          "70-79",
-          "80-89",
-          "90-"
-        ]
-      }
-    },
-    {
-      "code": "Sukupuoli",
-      "selection": {
-        "filter": "item",
-        "values": [
-          "1",
-          "2"
-        ]
-      }
-    },
-    {
-      "code": "Vuosi",
-      "selection": {
-        "filter": "item",
-        "values": [
-          "2021"
-        ]
-      }
+    ],
+    "response": {
+      "format": "json-stat2"
     }
-  ],
-  "response": {
-    "format": "json-stat2"
   }
-}
 `;
 
 
