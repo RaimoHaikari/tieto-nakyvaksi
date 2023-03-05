@@ -10,6 +10,7 @@ import Footer from "./components/footer";
 import LandingPage from "./pages/LandingPage";
 import Pylvaskuvio from "./pages/Pylvaskuvio";
 import Helmitaulukuvio from "./pages/Helmitaulukuvio";
+import ZoomableCirclePacking from "./pages/ZoomableCirclePacking";
 
 // import LetterFrequences from "./components/VaakaPylvaskuvio/LetterFrequences";
 import VaakaPylvaskuvio from "./components/VaakaPylvaskuvio";
@@ -29,6 +30,7 @@ const App = () => {
       <Header />
 
       <Routes>
+        <Route path="/zoomableCirclePacking" element = {<ZoomableCirclePacking />} />
         <Route path="/pylvaskuvio/vaakapylvaskuvio" element = {<VaakaPylvaskuvio />} />
         <Route path="/pylvaskuvio/pyramidikuvio" element = {<Pyramidikuvio />} />
         <Route path="/pylvaskuvio" element = {<Pylvaskuvio />} />
