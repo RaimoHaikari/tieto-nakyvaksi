@@ -18,8 +18,9 @@ const Observablehq = () => {
             data 
             ? <ZoomableCirclePacking 
                 data = { data }
-                width = { width * 0.75}
-                height = { width * 0.75 }
+                _value = { d => d.value }
+                width = { width * 0.9 }
+                height = { width * 0.9 }
               />
             : loading
                 ? <p>Ladataan</p>
