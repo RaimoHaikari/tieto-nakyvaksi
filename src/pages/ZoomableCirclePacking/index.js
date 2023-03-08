@@ -20,7 +20,7 @@ const ZoomableCirclePacking = () => {
      */
     return (
         <>
-            <Observablehq />
+            <Euro2016 />
         </>
 
     );

@@ -37,7 +37,7 @@ const svgStyle = {
  * @param id if tabular data, given a d in data, returns a unique identifier (string)
  * @param parentId if tabular data, given a node d, returns its parent’s identifier
  * @param children if hierarchical data, given a d in data, returns its children
- * @param value given a node d, returns a quantitative value (for area encoding; null for count)
+ * @param _value given a node d, returns a quantitative value (for area encoding; null for count)
  * @param sort how to sort nodes prior to layout
  * @param width - the outer width of the chart, in pixels
  * @param height - the outer height of the chart, in pixels
@@ -72,9 +72,12 @@ const ZoomableCirclePacking = ({
              * specified as an object {children} with nested objects (a.k.a. the “flare.json”
              * format), and use d3.hierarchy.
              */
-            const foo =  path != null 
-                ? stratify().path(path)(data)
+            const foo =  id != null || parentId != null 
+                ? stratify().id(id).parentId(parentId)(data)
                 : hierarchy(data, children);
+
+            //console.log("........ tulos ........");
+            //console.log(foo)
 
             //  Compute the values of internal nodes by aggregating from the leaves.
             _value == null 
